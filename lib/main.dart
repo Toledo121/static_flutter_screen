@@ -4,12 +4,6 @@ void main() {
   runApp(const MyApp());
 }
 
-// Wireframe palette: grayscale only
-const Color wfLine = Color(0xFF424242);
-const Color wfFill = Color(0xFFEEEEEE);
-const Color wfText = Color(0xFF212121);
-const Color wfMuted = Color(0xFF9E9E9E);
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,174 +11,173 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Greenify Wireframe',
+      title: 'GreeniFy',
       home: const GreenifyLogin(),
     );
-  }
-}
-
-/// Reusable outlined box used for inputs, buttons and placeholders.
-class WireBox extends StatelessWidget {
-  final double? width;
-  final double? height;
-  final Color fill;
-  final EdgeInsets padding;
-  final Alignment alignment;
-  final Widget? child;
-
-  const WireBox({
-    super.key,
-    this.width,
-    this.height,
-    this.fill = Colors.white,
-    this.padding = EdgeInsets.zero,
-    this.alignment = Alignment.center,
-    this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      padding: padding,
-      alignment: alignment,
-      decoration: BoxDecoration(
-        color: fill,
-        border: Border.all(color: wfLine, width: 1.5),
-      ),
-      child: child,
-    );
-  }
-}
-
-/// Gray bar that stands in for a line of text.
-class TextBar extends StatelessWidget {
-  final double width;
-  final double height;
-
-  const TextBar({super.key, required this.width, this.height = 12});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(width: width, height: height, color: wfMuted);
   }
 }
 
 class GreenifyLogin extends StatelessWidget {
   const GreenifyLogin({super.key});
 
+  static const Color leafGreen = Color(0xFF2E9E10);
+  static const Color buttonGreen = Color(0xFF4A9B2A);
+  static const Color tileGray = Color(0xFFC9C5C5);
+  static const Color fieldGray = Color(0xFFDADADA);
+
+  static const List<BoxShadow> softShadow = [
+    BoxShadow(
+      color: Color(0x40000000),
+      blurRadius: 6,
+      offset: Offset(0, 3),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: SizedBox(
-          width: 320,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Logo placeholder + app name
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    WireBox(
-                      width: 70,
-                      height: 70,
-                      fill: wfFill,
-                      child: Icon(Icons.close, size: 40, color: wfMuted),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 90, bottom: 30),
+              child: Column(
+                children: [
+                  // Logo + app name
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 76,
+                        height: 76,
+                        padding: const EdgeInsets.all(9),
+                        decoration: BoxDecoration(
+                          color: tileGray,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: softShadow,
+                        ),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: leafGreen,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(18),
+                              bottomRight: Radius.circular(18),
+                            ),
+                          ),
+                          child: Center(
+                            child: Transform.rotate(
+                              angle: 0.8,
+                              child: Container(
+                                width: 1.5,
+                                height: 40,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      const Text(
+                        'GreeniFy',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
+                          shadows: [
+                            Shadow(
+                              color: Color(0x66000000),
+                              blurRadius: 6,
+                              offset: Offset(2, 3),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  const Text(
+                    'Welcome to GreeniFy',
+                    style: TextStyle(fontSize: 24, color: Colors.black),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  const Text(
+                    'Lets grow some plants!',
+                    style: TextStyle(fontSize: 15, color: Colors.black),
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // Username
+                  Container(
+                    width: 240,
+                    height: 48,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      color: fieldGray,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: softShadow,
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      'Greenify',
+                    child: const Text(
+                      'Username',
+                      style: TextStyle(color: Color(0xFF6B6B6B), fontSize: 14),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Password
+                  Container(
+                    width: 240,
+                    height: 48,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      color: fieldGray,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: softShadow,
+                    ),
+                    child: const Text(
+                      'Password',
+                      style: TextStyle(color: Color(0xFF6B6B6B), fontSize: 14),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Login button
+                  Container(
+                    width: 240,
+                    height: 48,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: buttonGreen,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: softShadow,
+                    ),
+                    child: const Text(
+                      'Login',
                       style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: wfText,
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 35),
-
-                // Heading
-                const Text(
-                  'Welcome to Greenify',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: wfText,
                   ),
-                ),
 
-                const SizedBox(height: 8),
+                  const SizedBox(height: 8),
 
-                // Subtitle
-                const Text(
-                  'Lets grow some plants!',
-                  style: TextStyle(fontSize: 14, color: wfText),
-                ),
-
-                const SizedBox(height: 35),
-
-                // Username field
-                const WireBox(
-                  width: double.infinity,
-                  height: 50,
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Username',
-                    style: TextStyle(color: wfMuted),
+                  const Text(
+                    'Forgot password?',
+                    style: TextStyle(fontSize: 11, color: Colors.black),
                   ),
-                ),
-
-                const SizedBox(height: 18),
-
-                // Password field
-                const WireBox(
-                  width: double.infinity,
-                  height: 50,
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Password',
-                    style: TextStyle(color: wfMuted),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Login button
-                const WireBox(
-                  width: double.infinity,
-                  height: 50,
-                  fill: wfFill,
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      color: wfText,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 12),
-
-                // Forgot password link
-                const Text(
-                  'Forgot password?',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: wfText,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
